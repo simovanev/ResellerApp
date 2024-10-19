@@ -2,17 +2,15 @@ package com.resellerapp.model.entity;
 
 import com.resellerapp.model.enums.ConditionName;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import java.lang.annotation.Target;
+import javax.persistence.*;
+
 
 @Entity
-@Table()
-public class Condition  extends BaseId{
+@Table(name = "conditions")
+public class Condition extends BaseId {
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false, unique = true)
+    @Enumerated(EnumType.STRING)
     private ConditionName conditionName;
     @Column(nullable = false)
     private String description;
@@ -20,11 +18,16 @@ public class Condition  extends BaseId{
     public Condition() {
     }
 
+    public Condition(ConditionName conditionName) {
+        this.conditionName = conditionName;
+    }
+
+    @Enumerated(EnumType.STRING)
     public ConditionName getConditionName() {
         return conditionName;
     }
 
-    public void setConditionName( ConditionName conditionName) {
+    public void setConditionName(ConditionName conditionName) {
         this.conditionName = conditionName;
     }
 
