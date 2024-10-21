@@ -38,12 +38,17 @@ public class UserController {
     @PostMapping("/login")
     public String loginPost(@Valid LoginDto loginDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("loginDto",loginDto);
+            redirectAttributes.addFlashAttribute(
+                    "org.springframework.validation.BindingResult.loginDto",bindingResult);
             return "login";
         }
-        if (userService.isLogged(loginDto)) {
-            return "redirect:/home";
+        if (!userService.isLogged(loginDto)) {
+            redirectAttributes.addFlashAttribute("loginDto",loginDto);
+            redirectAttributes.addFlashAttribute("incorrectCredentials",true);
+            return "redirect:/login";
         }
 
-        return "redirect:/login";
+        return "redirect:/home";
     }
 }
