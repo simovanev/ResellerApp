@@ -1,10 +1,12 @@
 package com.resellerapp.model.dtos;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class RegisterDto {
     @Size(min = 2, max = 30)
+    @NotNull(message = "Mandatory field")
     private String username;
     @Email
     private String email;
