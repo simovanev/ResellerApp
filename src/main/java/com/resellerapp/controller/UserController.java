@@ -45,17 +45,15 @@ public class UserController {
     @PostMapping("/register")
     public String register(@Valid RegisterDto registerDto
             , BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        if (!userService.goodCredentials(registerDto)) {
+            bindingResult.addError(new FieldError("registerDto", "confirmPassword", "Passwords must be the same."));
+        }
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("registerDto", registerDto);
             redirectAttributes.addFlashAttribute(
                     "org.springframework.validation.BindingResult.registerDto", bindingResult);
             return "redirect:register";
-        }
-        if (!userService.goodCredentials(registerDto)) {
-            bindingResult.addError(new FieldError("registerDto","confirmPassword","Passwords must be the same."));
-            redirectAttributes.addFlashAttribute("registerDto", registerDto);
-            redirectAttributes.addFlashAttribute("mustMatch", true);
-            return "redirect:/register";
         }
         return "redirect:/login";
     }
