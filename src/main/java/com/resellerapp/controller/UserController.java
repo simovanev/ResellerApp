@@ -1,6 +1,7 @@
 package com.resellerapp.controller;
 
 import com.resellerapp.model.dtos.LoginDto;
+import com.resellerapp.model.dtos.RegisterDto;
 import com.resellerapp.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,9 +20,15 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
+
     @ModelAttribute("loginDto")
     public LoginDto initLoginDto() {
         return new LoginDto();
+    }
+
+    @ModelAttribute("registerDto")
+    public RegisterDto newRegister() {
+        return new RegisterDto();
     }
 
     @GetMapping("/")
@@ -29,23 +36,46 @@ public class UserController {
         return "index";
     }
 
+    @GetMapping("/register")
+    public String register() {
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String register(@Valid RegisterDto registerDto
+            , BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("registerDto", registerDto);
+            redirectAttributes.addFlashAttribute(
+                    "org.springframework.validation.BindingResult.loginDto", bindingResult);
+            return "redirect:/register";
+        }
+        if (!userService.goodCredentials(registerDto)) {
+            redirectAttributes.addFlashAttribute("registerDto", registerDto);
+            redirectAttributes.addFlashAttribute("mustMatch", true);
+            return "redirect:/register";
+        }
+        return "redirect:/login";
+    }
+
     @GetMapping("/login")
     public String login(Model model) {
-       // model.addAttribute("loginDto", new LoginDto());
+        // model.addAttribute("loginDto", new LoginDto());
         return "login";
     }
 
     @PostMapping("/login")
-    public String loginPost(@Valid LoginDto loginDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String loginPost(@Valid LoginDto loginDto, BindingResult bindingResult, RedirectAttributes
+            redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("loginDto",loginDto);
+            redirectAttributes.addFlashAttribute("loginDto", loginDto);
             redirectAttributes.addFlashAttribute(
-                    "org.springframework.validation.BindingResult.loginDto",bindingResult);
-            return "login";
+                    "org.springframework.validation.BindingResult.loginDto", bindingResult);
+            return "redirect:/login";
         }
         if (!userService.isLogged(loginDto)) {
-            redirectAttributes.addFlashAttribute("loginDto",loginDto);
-            redirectAttributes.addFlashAttribute("incorrectCredentials",true);
+            redirectAttributes.addFlashAttribute("loginDto", loginDto);
+            redirectAttributes.addFlashAttribute("incorrectCredentials", true);
             return "redirect:/login";
         }
 
