@@ -8,7 +8,7 @@ public class RegisterDto {
     @Size(min = 2, max = 30)
     @NotNull(message = "Mandatory field")
     private String username;
-    @Email
+    @Email(message = "Enter valid email address")
     private String email;
     @Size(min = 2, max = 30)
     private String password;
