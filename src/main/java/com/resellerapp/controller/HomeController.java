@@ -20,6 +20,7 @@ public class HomeController {
         if (currentUser.getId() == 0) {
             return "redirect:/";
         }
+
         model.addAttribute("userName", currentUser);
 
 
