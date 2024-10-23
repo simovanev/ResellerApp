@@ -45,9 +45,15 @@ public class UserController {
     @PostMapping("/register")
     public String register(@Valid RegisterDto registerDto
             , BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-
-        if (!userService.goodCredentials(registerDto)) {
-            bindingResult.addError(new FieldError("registerDto", "confirmPassword", "Passwords must be the same."));
+        if (userService.isDuplicateEmail(registerDto)) {
+            FieldError emailError = new FieldError(
+                    "registerDto", "email", "Email is already in use");
+            bindingResult.addError(emailError);
+        }
+        if (userService.goodCredentials(registerDto)) {
+            FieldError confirmPasswordError= new FieldError(
+                    "registerDto", "confirmPassword", "Password is already in use");
+            bindingResult.addError(confirmPasswordError);
         }
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("registerDto", registerDto);
@@ -55,6 +61,7 @@ public class UserController {
                     "org.springframework.validation.BindingResult.registerDto", bindingResult);
             return "redirect:register";
         }
+        userService.saveUser(registerDto);
         return "redirect:/login";
     }
 

@@ -25,14 +25,18 @@ public class UserService {
     }
 
     public boolean goodCredentials(RegisterDto registerDto) {
-        boolean equalsPasswords = registerDto.getPassword().equals(registerDto.getConfirmPassword());
-        if (equalsPasswords) {
-            User user = new User();
-            user.setUsername(registerDto.getUsername());
-            user.setEmail(registerDto.getEmail());
-            user.setPassword(encoder.encode(registerDto.getPassword()));
-            userRepository.save(user);
-        }
-        return equalsPasswords;
+        return registerDto.getPassword().equals(registerDto.getConfirmPassword());
+    }
+
+    public boolean isDuplicateEmail(RegisterDto registerDto) {
+        return userRepository.findByEmail(registerDto.getEmail()).isPresent();
+    }
+
+    public void saveUser(RegisterDto registerDto) {
+        User user = new User();
+        user.setUsername(registerDto.getUsername());
+        user.setEmail(registerDto.getEmail());
+        user.setPassword(encoder.encode(registerDto.getPassword()));
+        userRepository.save(user);
     }
 }
