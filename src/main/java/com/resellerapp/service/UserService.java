@@ -19,9 +19,9 @@ public class UserService {
         this.encoder = encoder;
     }
 
-    public boolean isLogged(LoginDto loginDto) {
-        Optional<User> user = userRepository.findByUsernameAndPassword(loginDto.getUsername(), loginDto.getPassword());
-        return user.isPresent();
+    public boolean isRegistered(LoginDto loginDto) {
+        Optional<User> user = userRepository.findByUsername(loginDto.getUsername());
+        return encoder.matches(loginDto.getPassword(), user.get().getPassword());
     }
 
     public boolean goodCredentials(RegisterDto registerDto) {

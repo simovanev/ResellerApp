@@ -50,9 +50,9 @@ public class UserController {
                     "registerDto", "email", "Email is already in use");
             bindingResult.addError(emailError);
         }
-        if (userService.goodCredentials(registerDto)) {
-            FieldError confirmPasswordError= new FieldError(
-                    "registerDto", "confirmPassword", "Password is already in use");
+        if (!userService.goodCredentials(registerDto)) {
+            FieldError confirmPasswordError = new FieldError(
+                    "registerDto", "confirmPassword", "Passwords must be the same");
             bindingResult.addError(confirmPasswordError);
         }
         if (bindingResult.hasErrors()) {
@@ -67,22 +67,21 @@ public class UserController {
 
     @GetMapping("/login")
     public String login(Model model) {
-        // model.addAttribute("loginDto", new LoginDto());
         return "login";
     }
 
     @PostMapping("/login")
     public String loginPost(@Valid LoginDto loginDto, BindingResult bindingResult, RedirectAttributes
             redirectAttributes) {
+        if (!userService.isRegistered(loginDto)) {
+           FieldError noRegistrationError=new FieldError(
+                   "loginDto", "noRegistrationError", "Incorrect username or password");
+           bindingResult.addError(noRegistrationError);
+        }
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("loginDto", loginDto);
             redirectAttributes.addFlashAttribute(
                     "org.springframework.validation.BindingResult.loginDto", bindingResult);
-            return "redirect:/login";
-        }
-        if (!userService.isLogged(loginDto)) {
-            redirectAttributes.addFlashAttribute("loginDto", loginDto);
-            redirectAttributes.addFlashAttribute("incorrectCredentials", true);
             return "redirect:/login";
         }
 
