@@ -74,9 +74,9 @@ public class UserController {
     public String loginPost(@Valid LoginDto loginDto, BindingResult bindingResult, RedirectAttributes
             redirectAttributes) {
         if (!userService.isRegistered(loginDto)) {
-           FieldError noRegistrationError=new FieldError(
-                   "loginDto", "noRegistrationError", "Incorrect username or password");
-           bindingResult.addError(noRegistrationError);
+            FieldError noRegistrationError = new FieldError(
+                    "loginDto", "noRegistrationError", "Incorrect username or password");
+            bindingResult.addError(noRegistrationError);
         }
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("loginDto", loginDto);
@@ -84,7 +84,7 @@ public class UserController {
                     "org.springframework.validation.BindingResult.loginDto", bindingResult);
             return "redirect:/login";
         }
-
+        userService.login(loginDto);
         return "redirect:/home";
     }
 }

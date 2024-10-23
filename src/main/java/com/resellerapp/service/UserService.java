@@ -4,6 +4,7 @@ import com.resellerapp.model.dtos.LoginDto;
 import com.resellerapp.model.dtos.RegisterDto;
 import com.resellerapp.model.entity.User;
 import com.resellerapp.repository.UserRepository;
+import com.resellerapp.session.CurrentUser;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +14,12 @@ import java.util.Optional;
 public class UserService {
     private UserRepository userRepository;
     private PasswordEncoder encoder;
+    private CurrentUser currentUser;
 
-    public UserService(UserRepository userRepository, PasswordEncoder encoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder encoder, CurrentUser currentUser) {
         this.userRepository = userRepository;
         this.encoder = encoder;
+        this.currentUser = currentUser;
     }
 
     public boolean isRegistered(LoginDto loginDto) {
@@ -38,5 +41,16 @@ public class UserService {
         user.setEmail(registerDto.getEmail());
         user.setPassword(encoder.encode(registerDto.getPassword()));
         userRepository.save(user);
+    }
+
+    public void login(LoginDto loginDto) {
+        Optional<User> user = userRepository.findByUsername(loginDto.getUsername());
+        currentUser.setId(user.get().getId());
+        currentUser.setName(user.get().getUsername());
+
+    }
+    public void logout() {
+        currentUser.setId(0);
+        currentUser.setName(null);
     }
 }
