@@ -51,32 +51,31 @@
 
             <div class="col-6 mt-1 mb-1">
                 <h3 class="mySticky bg-gray text-dark  mb-0 mt-2">All Other Offers</h3>
-                <h6 class="mySticky bg-gray text-dark  mb-0 mt-0">{totalOffers}</h6>
+                <h6 class="mySticky bg-gray text-dark  mb-0 mt-0"th:text="${totalSize}">{totalOffers}</h6>
                 <div class="bg-dark rounded m-auto" style="height: 67vh; overflow: auto">
                     <div>
                         <div>
                             <br>
                             <ul class="list-group list-group-horizontal text-dark">
                                 <li class="list-group-item">
-                                    <table>
+                                    <table th:each="o:${otherOffers}" th:object="${o}">
                                         <tr>
                                             <td style="width: 35%">
-                                                <a>{sellersUsername} sells:</a>
+                                                <a th:text="*{ownedBy}">{sellersUsername} sells:</a>
                                             </td>
                                             <td>
-                                                <a>{offerDescription}</a>
+                                                <a th:text="*{description}">{offerDescription}</a>
                                             </td>
                                         </tr>
                                     </table>
-                                </li>
                                 <li class="list-group-item bg-gray">
-                                    <table>
+                                    <table th:each="o:${otherOffers}" th:object="${o}">
                                         <tr>
                                             <td style="width: 40%">
-                                                <a>Condition: {offerCondition}</a>
+                                                <a th:text="*{condition}">Condition: {offerCondition}</a>
                                             </td>
                                             <td class="text-primary" style="width: 40%">
-                                                <a>Price: {offerPrice} €</a>
+                                                <a th:utext="|*{price}|">Price: {offerPrice} €</a>
                                             </td>
                                             <td>
                                                 <a class="ml-3 text-danger" href="/">

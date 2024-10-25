@@ -6,17 +6,17 @@ import java.util.Set;
 
 @Entity
 @Table
-public class User extends BaseId{
-    @Column(unique=true, nullable=false)
+public class User extends BaseId {
+    @Column(unique = true, nullable = false)
     private String username;
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String password;
-    @Column(unique=true, nullable=false)
+    @Column(unique = true, nullable = false)
     @Email
     private String email;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "ownedBy")
     private Set<Offer> offers;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "boughtBy")
     private Set<Offer> boughtOffers;
 
     public User() {

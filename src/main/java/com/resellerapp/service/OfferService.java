@@ -16,8 +16,16 @@ public class OfferService {
         this.offerRepository = offerRepository;
     }
 
-    public List<Offer> getAllOffers() {
-        return offerRepository.findAll();
+
+    public Set<Offer> offersByUserNot(int id) {
+        return offerRepository.findByOwnedByIdAndBoughtByIdNot(id, id);
     }
 
+    public Set<Offer> offersByUser(int id) {
+        return offerRepository.findByOwnedById(id);
+    }
+
+    public Set<Offer> boughtOffersByUser(int id) {
+        return offerRepository.findByBoughtById(id);
+    }
 }

@@ -13,6 +13,10 @@ public class Offer extends BaseId {
     private Double price;
     @ManyToOne
     private Condition condition;
+    @ManyToOne
+    private User ownedBy;
+    @ManyToOne
+    private User boughtBy;
 
     public Offer() {
     }
@@ -39,5 +43,21 @@ public class Offer extends BaseId {
 
     public void setCondition(Condition condition) {
         this.condition = condition;
+    }
+
+    public User getOwnedBy() {
+        return ownedBy;
+    }
+
+    public void setOwnedBy(User ownedBy) {
+        this.ownedBy = ownedBy;
+    }
+
+    public User getBoughtBy() {
+        return boughtBy;
+    }
+
+    public void setBoughtBy(User boughtBy) {
+        this.boughtBy = boughtBy;
     }
 }

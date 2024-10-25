@@ -2,6 +2,7 @@ package com.resellerapp.controller;
 
 import com.resellerapp.model.dtos.BoughtOfferDto;
 import com.resellerapp.model.dtos.MyOfferDto;
+import com.resellerapp.model.dtos.OtherOfferDto;
 import com.resellerapp.model.entity.Offer;
 import com.resellerapp.service.OfferService;
 import com.resellerapp.service.UserService;
@@ -38,18 +39,26 @@ public class HomeController {
         }
         model.addAttribute("userName", currentUser);
 
-        Set<Offer> myOffers = userService.offersByUser(currentUser.getId());
+        Set<Offer> myOffers = offerService.offersByUser(currentUser.getId());
         List<MyOfferDto> offerDtoList = myOffers.stream()
                 .map(o -> modelMapper.map(o, MyOfferDto.class))
                 .collect(Collectors.toList());
         model.addAttribute("myOffers", offerDtoList);
 
-        Set<Offer> boughtOffers = userService.boughtOffersByUser(currentUser.getId());
+        Set<Offer> boughtOffers = offerService.boughtOffersByUser(currentUser.getId());
         List<BoughtOfferDto> boughtOfferDtoList = boughtOffers.stream()
                 .map(o -> modelMapper.map(o, BoughtOfferDto.class))
                 .collect(Collectors.toList());
         model.addAttribute("boughtOffers", boughtOfferDtoList);
 
+        Set<Offer> otherOffers = offerService.offersByUserNot(currentUser.getId());
+        List<OtherOfferDto> allOtherOffersList = otherOffers.stream()
+                .map(o -> modelMapper.map(o, OtherOfferDto.class))
+                .collect(Collectors.toList());
+
+
+        model.addAttribute("otherOffers", allOtherOffersList);
+        model.addAttribute("totalSize", offerDtoList.size());
 
         return "home";
     }
