@@ -19,4 +19,5 @@ public class OfferService {
     public List<Offer> getAllOffers() {
         return offerRepository.findAll();
     }
+
 }

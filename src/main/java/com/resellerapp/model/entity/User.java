@@ -1,9 +1,6 @@
 package com.resellerapp.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.util.Set;
 
@@ -17,9 +14,9 @@ public class User extends BaseId{
     @Column(unique=true, nullable=false)
     @Email
     private String email;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Offer> offers;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Offer> boughtOffers;
 
     public User() {

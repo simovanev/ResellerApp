@@ -2,6 +2,7 @@ package com.resellerapp.service;
 
 import com.resellerapp.model.dtos.LoginDto;
 import com.resellerapp.model.dtos.RegisterDto;
+import com.resellerapp.model.entity.Offer;
 import com.resellerapp.model.entity.User;
 import com.resellerapp.repository.UserRepository;
 import com.resellerapp.session.CurrentUser;
@@ -9,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -49,8 +51,25 @@ public class UserService {
         currentUser.setName(user.get().getUsername());
 
     }
+
     public void logout() {
         currentUser.setId(0);
         currentUser.setName(null);
+    }
+
+    public Set<Offer> offersByUser(int userId) {
+        User user = userRepository.findById(userId).orElse(null);
+        if (user == null) {
+            return null;
+        }
+        return user.getOffers();
+    }
+
+    public Set<Offer> boughtOffersByUser(int userId) {
+        User user = userRepository.findById(userId).orElse(null);
+        if (user == null) {
+            return null;
+        }
+        return user.getBoughtOffers();
     }
 }
