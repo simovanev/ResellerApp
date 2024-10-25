@@ -14,11 +14,11 @@
                     <div class="bg-dark rounded m-auto" style="height: 31vh; overflow: auto">
                         <table class="table table-striped table-dark" th:each="o:${myOffers}" th:object="${o}">
                             <tr>
-                                <td class="bg-info" scope="row" style="width: 5%" ">
+                                <td class="bg-info" scope="row" style="width: 5%">
                                     <img class="mr-2 " src="/img/etiquette.png" alt="Etiquette" width="35px"
                                          height="35px">
                                 </td>
-                                <td style="width: 5%" class="bg-info"th:text="*{condition.toString()}">{condition}</td>
+                                <td style="width: 5%" class="bg-info"th:text="*{condition}">{condition}</td>
                                 <td class="bg-primary" style="width: 15%"th:utext="|*{price}|">{price} €</td>
                                 <td th:text="*{description}">{description}</td>
                                 <td style="width: 15%"><a class="btn-danger btn" href="/">Remove</a>
