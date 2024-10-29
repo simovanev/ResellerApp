@@ -8,6 +8,7 @@ import org.springframework.web.context.annotation.SessionScope;
 public class CurrentUser {
     private int id;
     private String name;
+    public boolean isLogged;
 
     public CurrentUser() {
     }
@@ -26,5 +27,13 @@ public class CurrentUser {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isLogged() {
+        return isLogged;
+    }
+
+    public void setLogged(boolean logged) {
+        isLogged = logged;
     }
 }

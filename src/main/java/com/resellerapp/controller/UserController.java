@@ -87,4 +87,9 @@ public class UserController {
         userService.login(loginDto);
         return "redirect:/home";
     }
+    @GetMapping("/logout")
+    public String logout(){
+        userService.logout();
+        return "redirect:/index";
+    }
 }

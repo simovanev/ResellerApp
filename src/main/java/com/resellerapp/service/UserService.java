@@ -49,12 +49,14 @@ public class UserService {
         Optional<User> user = userRepository.findByUsername(loginDto.getUsername());
         currentUser.setId(user.get().getId());
         currentUser.setName(user.get().getUsername());
+        currentUser.setLogged(true);
 
     }
 
     public void logout() {
         currentUser.setId(0);
         currentUser.setName(null);
+        currentUser.setLogged(false);
     }
 
 
