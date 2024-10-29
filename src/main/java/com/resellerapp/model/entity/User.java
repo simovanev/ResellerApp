@@ -14,7 +14,7 @@ public class User extends BaseId {
     @Column(unique = true, nullable = false)
     @Email
     private String email;
-    @OneToMany(mappedBy = "ownedBy")
+    @OneToMany(mappedBy = "ownedBy",fetch = FetchType.EAGER)
     private Set<Offer> offers;
     @OneToMany(mappedBy = "boughtBy")
     private Set<Offer> boughtOffers;

@@ -40,7 +40,7 @@ public class OfferController {
                     "org.springframework.validation.BindingResult.registerDto", bindingResult);
             return "redirect:offer-add";
         }
-offerService.addOffer(addOfferDto);
+        offerService.addOffer(addOfferDto);
         return "redirect:home";
     }
 }

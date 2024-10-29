@@ -7,18 +7,18 @@ import javax.validation.constraints.Size;
 public class AddOfferDto {
     @Size(min = 2, max = 50)
     @NotNull
-    private int description;
+    private String description;
     @NotNull
     @Positive
     private double price;
     @NotNull
     private String condition;
 
-    public int getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(int description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 

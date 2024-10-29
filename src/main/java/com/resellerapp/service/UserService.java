@@ -60,4 +60,7 @@ public class UserService {
     }
 
 
+    public User userByCurrentUserId() {
+        return userRepository.getById(currentUser.getId());
+    }
 }
