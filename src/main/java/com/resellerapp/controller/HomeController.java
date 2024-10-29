@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.persistence.Column;
+
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -21,14 +21,11 @@ import java.util.stream.Collectors;
 public class HomeController {
     private CurrentUser currentUser;
     private OfferService offerService;
-    private UserService userService;
     private ModelMapper modelMapper;
 
     public HomeController(CurrentUser currentUser, OfferService offerService, UserService userService, ModelMapper modelMapper) {
         this.currentUser = currentUser;
         this.offerService = offerService;
-        this.userService = userService;
-
         this.modelMapper = modelMapper;
     }
 
