@@ -6,6 +6,7 @@ import com.resellerapp.model.entity.Condition;
 import com.resellerapp.model.entity.Offer;
 import com.resellerapp.model.entity.User;
 import com.resellerapp.repository.OfferRepository;
+import com.resellerapp.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -19,12 +20,15 @@ public class OfferService {
     private ModelMapper modelMapper;
     private UserService userService;
     private ConditionService conditionService;
+    private UserRepository userRepository;
 
-    public OfferService(OfferRepository offerRepository, ModelMapper modelMapper, UserService userService, ConditionService conditionService) {
+
+    public OfferService(OfferRepository offerRepository, ModelMapper modelMapper, UserService userService, ConditionService conditionService, UserRepository userRepository) {
         this.offerRepository = offerRepository;
         this.modelMapper = modelMapper;
         this.userService = userService;
         this.conditionService = conditionService;
+        this.userRepository = userRepository;
     }
 
 
@@ -45,6 +49,8 @@ public class OfferService {
         offer.setCondition(conditionService.findByName(addOfferDto.getCondition()));
         User user = userService.userByCurrentUserId();
         offer.setOwnedBy(user);
+        user.getOffers().add(offer);
+        userRepository.save(user);
         offerRepository.save(offer);
 
     }
