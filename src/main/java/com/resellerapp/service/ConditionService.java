@@ -14,7 +14,7 @@ public class ConditionService {
     }
 
     public Condition findByName(String condition) {
-        //TODO
-        conditionRepository.findByConditionName(condition.);
+
+        return conditionRepository.findByConditionName(ConditionName.valueOf(condition));
     }
 }

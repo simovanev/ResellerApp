@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ConditionRepository extends JpaRepository<Condition, Integer> {
-    void findByConditionName(ConditionName conditionName);
+    Condition findByConditionName(ConditionName conditionName);
 }
