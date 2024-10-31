@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Set;
 
@@ -44,6 +45,7 @@ public class OfferService {
         return offerRepository.findByBoughtById(id);
     }
 
+    @Transactional
     public void addOffer(AddOfferDto addOfferDto) {
         Offer offer = modelMapper.map(addOfferDto, Offer.class);
         offer.setCondition(conditionService.findByName(addOfferDto.getCondition()));
