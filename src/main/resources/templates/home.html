@@ -24,7 +24,8 @@
                                 <td style="width: 15%">
                                     <form
                                           th:action="@{/remove/{id}(id=*{id})}"
-                                          th:method="POST">
+                                          th:method="POST"
+                                          onsubmit="return confirm('Are you sure you want to remove this offer?');">
                                         <button type="submit" class="btn-danger btn">Remove</button>
                                     </form>
                                 </td>

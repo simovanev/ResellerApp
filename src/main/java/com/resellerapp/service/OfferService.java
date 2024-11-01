@@ -56,6 +56,10 @@ public class OfferService {
 
     @Transactional
     public void removeOffer(int id) {
-        offerRepository.deleteById(id);
+        Offer offer = offerRepository.findById(id).get();
+        User user = offer.getOwnedBy();
+
+        user.getOffers().remove(offer);
+        offerRepository.delete(offer);
     }
 }

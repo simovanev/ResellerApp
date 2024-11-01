@@ -57,20 +57,22 @@ public class HomeController {
 
 
         model.addAttribute("otherOffers", allOtherOffersList);
-        model.addAttribute("totalSize",allOtherOffersList.size());
+        model.addAttribute("totalSize", allOtherOffersList.size());
 
         return "home";
     }
-    @PostMapping("/remove{id}")
+
+    @PostMapping("/remove/{id}")
     public String remove(@PathVariable int id, RedirectAttributes redirectAttributes) {
 
-        try{
+        try {
             offerService.removeOffer(id);
             redirectAttributes.addFlashAttribute("success", "Removed offer successfully");
-        }catch (Exception e){
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-        }
-        return "redirect:/home";
 
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Error removing offer");
+        }
+            return "redirect:/home";
+
+        }
     }
-}
