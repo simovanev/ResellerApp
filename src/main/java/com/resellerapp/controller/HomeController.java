@@ -39,6 +39,7 @@ public class HomeController {
         Set<Offer> myOffers = offerService.offersByUser(currentUser.getId());
         List<MyOfferDto> offerDtoList = myOffers.stream()
                 .map(o -> modelMapper.map(o, MyOfferDto.class))
+
                 .collect(Collectors.toList());
         model.addAttribute("myOffers", offerDtoList);
 
