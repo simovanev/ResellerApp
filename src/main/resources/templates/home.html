@@ -22,12 +22,12 @@
                                 <td class="bg-primary" style="width: 15%" th:utext="|*{price}|">{price} €</td>
                                 <td th:text="*{description}">{description}</td>
                                 <td style="width: 15%">
-                                    <form
+                                    <a
                                           th:action="@{/remove/{id}(id=*{id})}"
                                           th:method="POST"
                                           onsubmit="return confirm('Are you sure you want to remove this offer?');">
                                         <button type="submit" class="btn-danger btn">Remove</button>
-                                    </form>
+                                    </a>
                                 </td>
                             </tr>
                         </table>
