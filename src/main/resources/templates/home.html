@@ -18,10 +18,15 @@
                                     <img class="mr-2 " src="/img/etiquette.png" alt="Etiquette" width="35px"
                                          height="35px">
                                 </td>
-                                <td style="width: 5%" class="bg-info"th:text="*{condition}">{condition}</td>
-                                <td class="bg-primary" style="width: 15%"th:utext="|*{price}|">{price} €</td>
+                                <td style="width: 5%" class="bg-info" th:text="*{condition}">{condition}</td>
+                                <td class="bg-primary" style="width: 15%" th:utext="|*{price}|">{price} €</td>
                                 <td th:text="*{description}">{description}</td>
-                                <td style="width: 15%"><a class="btn-danger btn"  th:href="@{/remove}">Remove</a>
+                                <td style="width: 15%">
+                                    <form
+                                          th:action="@{/remove/{id}(id=*{id})}"
+                                          th:method="POST">
+                                        <button type="submit" class="btn-danger btn">Remove</button>
+                                    </form>
                                 </td>
                             </tr>
                         </table>
@@ -40,7 +45,7 @@
                                 <td style="width: 5%" class="bg-info" th:text="*{description}">
                                     <a>{itemDescritpion}</a>
                                 </td>
-                                <td class="bg-primary" style="width: 15%"th:utext="|*{price}|">
+                                <td class="bg-primary" style="width: 15%" th:utext="|*{price}|">
                                     <a>{itemPrice} €</a>
                                 </td>
                             </tr>
@@ -51,7 +56,7 @@
 
             <div class="col-6 mt-1 mb-1">
                 <h3 class="mySticky bg-gray text-dark  mb-0 mt-2">All Other Offers</h3>
-                <h6 class="mySticky bg-gray text-dark  mb-0 mt-0"th:text="${totalSize}">{totalOffers}</h6>
+                <h6 class="mySticky bg-gray text-dark  mb-0 mt-0" th:text="${totalSize}">{totalOffers}</h6>
                 <div class="bg-dark rounded m-auto" style="height: 67vh; overflow: auto">
                     <div>
                         <div>

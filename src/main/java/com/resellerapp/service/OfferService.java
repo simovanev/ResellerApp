@@ -55,9 +55,7 @@ public class OfferService {
     }
 
     @Transactional
-    public void removeOffer(int id, MyOfferDto offer) {
-        Offer offerToRemove =
-                offerRepository.findByOwnedByIdAndPriceAndDescription(id, offer.getPrice(), offer.getDescription());
-        offerRepository.delete(offerToRemove);
+    public void removeOffer(int id) {
+        offerRepository.deleteById(id);
     }
 }

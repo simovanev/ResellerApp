@@ -20,5 +20,5 @@ public interface OfferRepository extends JpaRepository<Offer, Integer> {
 
     Set<Offer> findByBoughtById(int id);
 
-    Offer findByOwnedByIdAndPriceAndDescription(int id,double price,String description);
+
 }
