@@ -2,17 +2,14 @@ package com.resellerapp.service;
 
 import com.resellerapp.model.dtos.AddOfferDto;
 import com.resellerapp.model.dtos.MyOfferDto;
-import com.resellerapp.model.entity.Condition;
 import com.resellerapp.model.entity.Offer;
 import com.resellerapp.model.entity.User;
 import com.resellerapp.repository.OfferRepository;
 import com.resellerapp.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Set;
 
 @Service
@@ -34,7 +31,7 @@ public class OfferService {
 
 
     public Set<Offer> offersByUserNot(int id) {
-        return offerRepository.findByOwnedByIdAndBoughtByIdNot(id, id);
+        return offerRepository.findByOwnedByIdNotAndBoughtByIdNot(id, id);
     }
 
     public Set<Offer> offersByUser(int id) {
@@ -53,7 +50,14 @@ public class OfferService {
         offer.setOwnedBy(user);
         user.getOffers().add(offer);
         userRepository.save(user);
-       // offerRepository.save(offer);
+        // offerRepository.save(offer); myOffer in user.class is cascade.All so offer is saved with the user.
 
+    }
+
+    @Transactional
+    public void removeOffer(int id, MyOfferDto offer) {
+        Offer offerToRemove =
+                offerRepository.findByOwnedByIdAndPriceAndDescription(id, offer.getPrice(), offer.getDescription());
+        offerRepository.delete(offerToRemove);
     }
 }

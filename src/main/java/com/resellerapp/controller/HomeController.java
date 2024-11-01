@@ -10,7 +10,9 @@ import com.resellerapp.session.CurrentUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 
 import java.util.List;
@@ -56,8 +58,15 @@ public class HomeController {
 
 
         model.addAttribute("otherOffers", allOtherOffersList);
-        model.addAttribute("totalSize", offerDtoList.size());
+        model.addAttribute("totalSize",allOtherOffersList.size());
 
         return "home";
+    }
+    @GetMapping("/remove")
+    public String remove(@ModelAttribute MyOfferDto offer) {
+       //Todo
+        offerService.removeOffer(currentUser.getId(),offer);
+        return "redirect:/home";
+
     }
 }

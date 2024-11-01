@@ -14,9 +14,11 @@ public interface OfferRepository extends JpaRepository<Offer, Integer> {
     @Override
     List<Offer> findAll();
 
-    Set<Offer> findByOwnedByIdAndBoughtByIdNot(int ownedBy_id, int boughtBy_id);
+    Set<Offer> findByOwnedByIdNotAndBoughtByIdNot(int ownedBy_id, int boughtBy_id);
 
     Set<Offer> findByOwnedById(int id);
 
     Set<Offer> findByBoughtById(int id);
+
+    Offer findByOwnedByIdAndPriceAndDescription(int id,double price,String description);
 }
