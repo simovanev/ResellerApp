@@ -53,7 +53,7 @@ public class OfferService {
         offer.setOwnedBy(user);
         user.getOffers().add(offer);
         userRepository.save(user);
-        offerRepository.save(offer);
+       // offerRepository.save(offer);
 
     }
 }

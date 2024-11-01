@@ -1,5 +1,7 @@
 package com.resellerapp.model.entity;
 
+import com.resellerapp.model.enums.ConditionName;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 
@@ -37,8 +39,8 @@ public class Offer extends BaseId {
         this.price = price;
     }
 
-    public Condition getCondition() {
-        return condition;
+    public ConditionName getCondition() {
+        return condition.getConditionName();
     }
 
     public void setCondition(Condition condition) {

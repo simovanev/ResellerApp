@@ -1,16 +1,16 @@
 package com.resellerapp.model.dtos;
 
 public class MyOfferDto {
-    private String condition;
+    private String conditionName;
     private double price;
     private String description;
 
     public String getCondition() {
-        return condition;
+        return conditionName;
     }
 
     public void setCondition(String condition) {
-        this.condition = condition;
+        this.conditionName = condition;
     }
 
     public double getPrice() {
