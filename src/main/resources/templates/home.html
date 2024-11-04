@@ -62,9 +62,9 @@
                     <div>
                         <div>
                             <br>
-                            <ul class="list-group list-group-horizontal text-dark">
-                                <li class="list-group-item">
-                                    <table th:each="o:${otherOffers}" th:object="${o}">
+                            <ul class="list-group list-group-horizontal text-dark" th:each="o:${otherOffers}" th:object="${o}">
+                                <li class="list-group-item" >
+                                    <table>
                                         <tr>
                                             <td style="width: 35%">
                                                 <a th:text="*{ownedBy}">{sellersUsername} sells:</a>
@@ -75,9 +75,9 @@
                                         </tr>
                                     </table>
                                 <li class="list-group-item bg-gray">
-                                    <table th:each="o:${otherOffers}" th:object="${o}">
-                                        <tr>
-                                            <td style="width: 40%">
+                                    <table >
+                                        <tr style="margin-bottom:50px">
+                                            <td style="width: 40% " >
                                                 <a th:text="*{condition}">Condition: {offerCondition}</a>
                                             </td>
                                             <td class="text-primary" style="width: 40%">
@@ -87,7 +87,7 @@
                                                 <a class="ml-3 text-danger" href="/">
                                                     <img src="/img/buy.png" height="35px"></a>
                                             </td>
-                                        </tr>
+                                        </tr >
                                     </table>
                                 </li>
                             </ul>

@@ -1,10 +1,19 @@
 package com.resellerapp.model.dtos;
 
 public class OtherOfferDto {
+    private int offerId;
     private String description;
     private String condition;
     private double price;
     private String ownedBy;
+
+    public int getOfferId() {
+        return offerId;
+    }
+
+    public void setOfferId(int offerId) {
+        this.offerId = offerId;
+    }
 
     public String getDescription() {
         return description;

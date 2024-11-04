@@ -40,7 +40,6 @@ public class HomeController {
         Set<Offer> myOffers = offerService.offersByUser(currentUser.getId());
         List<MyOfferDto> offerDtoList = myOffers.stream()
                 .map(o -> modelMapper.map(o, MyOfferDto.class))
-
                 .collect(Collectors.toList());
         model.addAttribute("myOffers", offerDtoList);
 
@@ -54,6 +53,16 @@ public class HomeController {
         List<OtherOfferDto> allOtherOffersList = otherOffers.stream()
                 .map(o -> modelMapper.map(o, OtherOfferDto.class))
                 .collect(Collectors.toList());
+
+        for(OtherOfferDto otherOfferDto : allOtherOffersList){
+            int id =otherOfferDto.getOfferId();
+            for (Offer offer:otherOffers){
+                if (offer.getId()==id){
+                    otherOfferDto.setOwnedBy(offer.getOwnedBy().getUsername());
+                }
+            }
+        }
+
 
 
         model.addAttribute("otherOffers", allOtherOffersList);
@@ -72,7 +81,7 @@ public class HomeController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Error removing offer");
         }
-            return "redirect:/home";
+        return "redirect:/home";
 
-        }
     }
+}

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class OfferService {
@@ -31,7 +32,7 @@ public class OfferService {
 
 
     public Set<Offer> offersByUserNot(int id) {
-        return offerRepository.findByOwnedByIdNotAndBoughtByIdNot(id, id);
+        return offerRepository.findByOwnedByIdNotOrBoughtByIdNot(id, id);
     }
 
     public Set<Offer> offersByUser(int id) {
