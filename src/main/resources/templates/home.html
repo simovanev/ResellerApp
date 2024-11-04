@@ -67,7 +67,7 @@
                                     <table>
                                         <tr>
                                             <td style="width: 35%">
-                                                <a th:text="*{ownedBy}">{sellersUsername} sells:</a>
+                                                <a th:text="*{ownedBy}+' sells:'" >{sellersUsername} sells:</a>
                                             </td>
                                             <td>
                                                 <a th:text="*{description}">{offerDescription}</a>
@@ -78,10 +78,10 @@
                                     <table >
                                         <tr style="margin-bottom:50px">
                                             <td style="width: 40% " >
-                                                <a th:text="*{condition}">Condition: {offerCondition}</a>
+                                                <a th:text="'Condition: '+*{condition}">Condition: {offerCondition}</a>
                                             </td>
                                             <td class="text-primary" style="width: 40%">
-                                                <a th:utext="|*{price}|">Price: {offerPrice} €</a>
+                                                <a th:text="*{price}">Price: {offerPrice} €</a>
                                             </td>
                                             <td>
                                                 <a class="ml-3 text-danger" href="/">
