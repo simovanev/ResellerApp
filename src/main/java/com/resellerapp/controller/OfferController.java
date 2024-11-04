@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,13 +35,18 @@ public class OfferController {
 
     @PostMapping("/addOffer")
     public String addOffer(@Valid AddOfferDto addOfferDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if(addOfferDto.getCondition().equals("0")){
+            FieldError fieldError = new FieldError(
+                    "addOfferDto", "condition", "Choose Condition!!!");
+            bindingResult.addError(fieldError);
+        }
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("addOfferDto", addOfferDto);
             redirectAttributes.addFlashAttribute(
-                    "org.springframework.validation.BindingResult.registerDto", bindingResult);
-            return "redirect:offer-add";
+                    "org.springframework.validation.BindingResult.addOfferDto", bindingResult);
+            return "redirect:/addOffer";
         }
         offerService.addOffer(addOfferDto);
-        return "redirect:home";
+        return "redirect:/home";
     }
 }

@@ -1,17 +1,18 @@
 package com.resellerapp.model.dtos;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 public class AddOfferDto {
     @Size(min = 2, max = 50)
-    @NotNull
     private String description;
     @NotNull
     @Positive
     private double price;
     @NotNull
+    @NotBlank
     private String condition;
 
     public String getDescription() {

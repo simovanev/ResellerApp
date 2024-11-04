@@ -19,10 +19,8 @@
                 >Description</label>
             </div>
             <input type="text" class="form-control" id="description" name="description"
-                      th:field="*{description}"
-                      th:errorclass="bg-danger">
-
-            </input>
+                   th:field="*{description}"
+                   th:errorclass="bg-danger"/>
             <small class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">
                 Description error message</small>
         </div>
@@ -49,7 +47,7 @@
             <select class="browser-default custom-select" id="condition" name="condition"
                     th:field="*{condition}"
                     th:errorclass="bg-danger">
-                <option value="">Select condition</option>
+                <option value="0">Select condition</option>
                 <option value="EXCELLENT">Excellent</option>
                 <option value="GOOD">Good</option>
                 <option value="ACCEPTABLE">Acceptable</option>
