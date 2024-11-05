@@ -23,9 +23,9 @@
                                 <td th:text="*{description}">{description}</td>
                                 <td style="width: 15%">
                                     <form
-                                          th:action="@{/remove/{id}(id=*{id})}"
-                                          th:method="POST"
-                                          onsubmit="return confirm('Are you sure you want to remove this offer?');">
+                                            th:action="@{/remove/{id}(id=*{id})}"
+                                            th:method="POST"
+                                            onsubmit="return confirm('Are you sure you want to remove this offer?');">
                                         <button type="submit" class="btn-danger btn">Remove</button>
                                     </form>
                                 </td>
@@ -46,7 +46,7 @@
                                 <td style="width: 5%" class="bg-info" th:text="*{description}">
                                     <a>{itemDescritpion}</a>
                                 </td>
-                                <td class="bg-primary" style="width: 15%" th:utext="|*{price}|">
+                                <td class="bg-primary" style="width: 15%" th:utext="'Price: '+|*{price}|+' euro'">
                                     <a>{itemPrice} €</a>
                                 </td>
                             </tr>
@@ -62,12 +62,13 @@
                     <div>
                         <div>
                             <br>
-                            <ul class="list-group list-group-horizontal text-dark" th:each="o:${otherOffers}" th:object="${o}">
-                                <li class="list-group-item" >
+                            <ul class="list-group list-group-horizontal text-dark" th:each="o:${otherOffers}"
+                                th:object="${o}">
+                                <li class="list-group-item">
                                     <table>
                                         <tr>
                                             <td style="width: 35%">
-                                                <a th:text="*{ownedBy}+' sells:'" >{sellersUsername} sells:</a>
+                                                <a th:text="*{ownedBy}+' sells:'">{sellersUsername} sells:</a>
                                             </td>
                                             <td>
                                                 <a th:text="*{description}">{offerDescription}</a>
@@ -75,19 +76,24 @@
                                         </tr>
                                     </table>
                                 <li class="list-group-item bg-gray">
-                                    <table >
+                                    <table>
                                         <tr style="margin-bottom:50px">
-                                            <td style="width: 40% " >
+                                            <td style="width: 40% ">
                                                 <a th:text="'Condition: '+*{condition}">Condition: {offerCondition}</a>
                                             </td>
                                             <td class="text-primary" style="width: 40%">
-                                                <a th:text="*{price}">Price: {offerPrice} €</a>
+                                                <a th:text="'Price: '+|*{price}|+' €'">Price: {offerPrice} €</a>
                                             </td>
                                             <td>
-                                                <a class="ml-3 text-danger" href="/">
-                                                    <img src="/img/buy.png" height="35px"></a>
+                                                <form class="ml-3 text-danger"
+                                                      th:action="@{/buy/{id}(id=*{offerId})}"
+                                                      th:method="POST"
+                                                >
+                                                    <button type="submit" class="transparent">
+                                                        <img src="/img/buy.png" height="35px" ></button>
+                                                </form>
                                             </td>
-                                        </tr >
+                                        </tr>
                                     </table>
                                 </li>
                             </ul>
