@@ -70,7 +70,7 @@ public class OfferService {
     public void buyOffer(int id) {
         Offer offer = offerRepository.findById(id).get();
         User user = userService.userByCurrentUserId();
-        user.getBoughtOffers().add(offer);
+        offer.setBoughtBy(user);
         userRepository.save(user);
     }
 }
