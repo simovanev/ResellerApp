@@ -68,7 +68,7 @@
                                     <table>
                                         <tr>
                                             <td style="width: 35%">
-                                                <a th:text="*{ownedBy}+' sells:' ">{sellersUsername} sells:</a>
+                                                <a th:text="${o.ownedBy!=null ? o.ownedBy :'Unknown'}+' sells:' ">{sellersUsername} sells:</a>
                                             </td>
                                             <td>
                                                 <a th:text="*{description}">{offerDescription}</a>
