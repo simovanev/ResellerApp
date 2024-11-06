@@ -85,13 +85,10 @@
                                                 <a th:text="'Price: '+|*{price}|+' €'">Price: {offerPrice} €</a>
                                             </td>
                                             <td>
-                                                <form class="ml-3 text-danger"
-                                                      th:action="@{/buy/{id}(id=*{offerId})}"
-                                                      th:method="POST"
-                                                >
-                                                    <button type="submit" class="transparent">
-                                                        <img src="/img/buy.png" height="35px" ></button>
-                                                </form>
+                                                <a class="ml-3 text-danger"
+                                                   th:href="@{/buy/{id}(id=*{offerId})}">
+                                                    <img src="/img/buy.png" height="35px">
+                                                </a>
                                             </td>
                                         </tr>
                                     </table>
