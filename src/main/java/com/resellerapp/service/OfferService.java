@@ -6,10 +6,12 @@ import com.resellerapp.model.entity.Offer;
 import com.resellerapp.model.entity.User;
 import com.resellerapp.repository.OfferRepository;
 import com.resellerapp.repository.UserRepository;
+import com.resellerapp.session.CurrentUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -22,12 +24,13 @@ public class OfferService {
     private UserRepository userRepository;
 
 
-    public OfferService(OfferRepository offerRepository, ModelMapper modelMapper, UserService userService, ConditionService conditionService, UserRepository userRepository) {
+    public OfferService(OfferRepository offerRepository, ModelMapper modelMapper, UserService userService, ConditionService conditionService, UserRepository userRepository, CurrentUser currentUser) {
         this.offerRepository = offerRepository;
         this.modelMapper = modelMapper;
         this.userService = userService;
         this.conditionService = conditionService;
         this.userRepository = userRepository;
+
     }
 
 
@@ -59,8 +62,15 @@ public class OfferService {
     public void removeOffer(int id) {
         Offer offer = offerRepository.findById(id).get();
         User user = offer.getOwnedBy();
-
         user.getOffers().remove(offer);
         offerRepository.delete(offer);
+    }
+
+    @Transactional
+    public void buyOffer(int id) {
+        Offer offer = offerRepository.findById(id).get();
+        User user = userService.userByCurrentUserId();
+        user.getBoughtOffers().add(offer);
+        userRepository.save(user);
     }
 }

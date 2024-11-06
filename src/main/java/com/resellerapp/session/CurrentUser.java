@@ -13,7 +13,7 @@ public class CurrentUser {
     public CurrentUser() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

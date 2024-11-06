@@ -10,7 +10,7 @@
             <div class="col-6 mt-1 mb-1">
                 <div>
                     <h3 class="mySticky bg-gray text-dark  mb-0 mt-2">My Offers</h3>
-                    <h6 class="mySticky bg-gray text-dark  mb-0 mt-0" th:text="|Username: ${userName.getName}|"></h6>
+                    <h6 class="mySticky bg-gray text-dark  mb-0 mt-0" th:text="|Username: ${userName}|"></h6>
                     <div class="bg-dark rounded m-auto" style="height: 31vh; overflow: auto">
                         <table class="table table-striped table-dark" th:each="o:${myOffers}" th:object="${o}">
                             <tr>
@@ -44,7 +44,7 @@
                                          height="35px">
                                 </td>
                                 <td style="width: 5%" class="bg-info" th:text="*{description}">
-                                    <a>{itemDescritpion}</a>
+                                    <a>{itemDescription}</a>
                                 </td>
                                 <td class="bg-primary" style="width: 15%" th:utext="'Price: '+|*{price}|+' euro'">
                                     <a>{itemPrice} €</a>
@@ -68,7 +68,7 @@
                                     <table>
                                         <tr>
                                             <td style="width: 35%">
-                                                <a th:text="*{ownedBy}+' sells:'">{sellersUsername} sells:</a>
+                                                <a th:text="*{ownedBy}+' sells:' ">{sellersUsername} sells:</a>
                                             </td>
                                             <td>
                                                 <a th:text="*{description}">{offerDescription}</a>

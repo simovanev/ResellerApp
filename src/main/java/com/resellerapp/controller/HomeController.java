@@ -35,7 +35,7 @@ public class HomeController {
         if (currentUser.getId() == 0) {
             return "redirect:/";
         }
-        model.addAttribute("userName", currentUser);
+        model.addAttribute("userName", currentUser.getName());
 
         Set<Offer> myOffers = offerService.offersByUser(currentUser.getId());
         List<MyOfferDto> offerDtoList = myOffers.stream()
@@ -83,5 +83,10 @@ public class HomeController {
         }
         return "redirect:/home";
 
+    }
+    @GetMapping("/buy/{id}")
+    public String byy(@PathVariable int id, RedirectAttributes redirectAttributes) {
+        offerService.buyOffer(id);
+        return "redirect:/home";
     }
 }
