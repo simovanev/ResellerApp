@@ -19,6 +19,17 @@ public class Offer extends BaseId {
     private User ownedBy;
     @ManyToOne
     private User boughtBy;
+    private boolean isSold = false;
+
+    public boolean isSold() {
+        return isSold;
+    }
+
+    public void setSold(boolean sold) {
+        isSold = sold;
+    }
+
+
 
     public Offer() {
     }

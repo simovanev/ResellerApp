@@ -51,6 +51,7 @@ public class HomeController {
 
         Set<Offer> otherOffers = offerService.offersByUserNot(currentUser.getId());
         List<OtherOfferDto> allOtherOffersList = otherOffers.stream()
+                .filter(o->!o.isSold())
                 .map(o -> modelMapper.map(o, OtherOfferDto.class))
                 .collect(Collectors.toList());
 

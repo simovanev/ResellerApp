@@ -35,7 +35,7 @@ public class OfferService {
 
 
     public Set<Offer> offersByUserNot(int id) {
-        return offerRepository.findByOwnedByIdNotOrBoughtByIdNot(id, id);
+        return offerRepository.findByOwnedByIdNot(id);
     }
 
     public Set<Offer> offersByUser(int id) {
@@ -71,6 +71,7 @@ public class OfferService {
         Offer offer = offerRepository.findById(id).get();
         User user = userService.userByCurrentUserId();
         offer.setBoughtBy(user);
+        offer.setSold(true);
         userRepository.save(user);
     }
 }
